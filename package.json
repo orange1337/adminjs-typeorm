@@ -1,5 +1,12 @@
 {
   "name": "@adminjs/typeorm",
+  "type": "module",
+  "exports": {
+    ".": {
+      "import": "./lib/index.js",
+      "types": "./lib/index.d.ts"
+    }
+  },
   "version": "4.0.0",
   "description": "TypeORM adapter for AdminJS",
   "keywords": [
@@ -10,18 +17,16 @@
     "typeorm admin",
     "admin panel"
   ],
-  "main": "lib/index.js",
-  "types": "lib/index.d.ts",
   "scripts": {
     "clean": "rm -fR lib",
     "build": "tsc",
     "dev": "yarn clean && tsc -w",
-    "test": "mocha -r ts-node/register ./spec/**/*.spec.ts",
+    "test": "mocha --loader=ts-node/esm ./spec/**/*.spec.ts",
     "ts-node": "ts-node",
-    "lint": "eslint './src/**/*.{ts,js}' './spec/**/*.{ts,js}' './example-app/**/*.{ts,js}' --ignore-pattern 'build' --ignore-pattern 'yarn.lock'",
-    "migrate": "ts-node ./node_modules/typeorm/cli.js migration:run -d spec/utils/test-data-source.ts",
+    "lint": "eslint './src/**/*.{ts,js}' --ignore-pattern 'build' --ignore-pattern 'yarn.lock'",
     "check:all": "yarn lint && yarn test && yarn build",
-    "typeorm": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js",
+    "typeorm": "typeorm-ts-node-esm -d \"./spec/utils/test-data-source.ts\"",
+    "migrate": "yarn typeorm migration:run",
     "release": "semantic-release"
   },
   "repository": {
@@ -36,36 +41,36 @@
   "author": "Artem Zabolotnyi <1arteha1@gmail.com>",
   "license": "MIT",
   "peerDependencies": {
-    "adminjs": ">=6.0.0",
+    "adminjs": "^7.0.0",
     "typeorm": "~0.3.0"
   },
   "optionalDependencies": {},
   "devDependencies": {
-    "@commitlint/cli": "^8.3.5",
-    "@commitlint/config-conventional": "^8.3.4",
-    "@semantic-release/git": "^9.0.0",
-    "@types/chai": "^4.2.4",
-    "@types/mocha": "^5.2.7",
-    "@types/node": "12.0.10",
-    "@typescript-eslint/eslint-plugin": "^3.7.0",
-    "@typescript-eslint/parser": "^3.7.0",
-    "adminjs": "^6.0.0",
-    "chai": "^4.2.0",
-    "class-validator": "^0.11.0",
-    "eslint": "^7.5.0",
-    "eslint-config-airbnb": "^18.2.0",
-    "eslint-plugin-import": "^2.22.0",
-    "eslint-plugin-jsx-a11y": "^6.3.1",
-    "eslint-plugin-react": "^7.20.3",
-    "eslint-plugin-react-hooks": "^4.0.8",
+    "@commitlint/cli": "^17.4.4",
+    "@commitlint/config-conventional": "^17.4.4",
+    "@semantic-release/git": "^10.0.1",
+    "@types/chai": "^4.3.4",
+    "@types/mocha": "^10.0.1",
+    "@types/node": "^18.15.3",
+    "@typescript-eslint/eslint-plugin": "^5.55.0",
+    "@typescript-eslint/parser": "^5.55.0",
+    "adminjs": "^7.0.0",
+    "chai": "^4.3.7",
+    "class-validator": "^0.14.0",
+    "eslint": "^8.36.0",
+    "eslint-config-airbnb": "^19.0.4",
+    "eslint-plugin-import": "^2.27.5",
+    "eslint-plugin-jsx-a11y": "^6.7.1",
+    "eslint-plugin-react": "^7.32.2",
+    "eslint-plugin-react-hooks": "^4.6.0",
     "husky": "^4.2.5",
-    "mocha": "^6.2.2",
-    "pg": "^8.7.3",
-    "semantic-release": "^17.0.7",
-    "semantic-release-slack-bot": "^1.6.2",
-    "ts-node": "^10.7.0",
-    "tsconfig-paths": "^3.14.1",
-    "typeorm": "~0.3.0",
-    "typescript": "^4.6.3"
+    "mocha": "^10.2.0",
+    "pg": "^8.10.0",
+    "semantic-release": "^20.1.3",
+    "semantic-release-slack-bot": "^4.0.0",
+    "ts-node": "^10.9.1",
+    "tsconfig-paths": "^4.1.2",
+    "typeorm": "^0.3.12",
+    "typescript": "^4.9.5"
   }
 }

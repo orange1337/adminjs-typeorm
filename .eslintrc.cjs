@@ -13,13 +13,10 @@ module.exports = {
     ecmaFeatures: {
       jsx: true,
     },
-    ecmaVersion: 11,
+    ecmaVersion: 20,
     sourceType: 'module',
   },
-  plugins: [
-    'react',
-    '@typescript-eslint',
-  ],
+  plugins: ['react', '@typescript-eslint'],
   rules: {
     semi: ['error', 'never'],
     'no-unused-vars': 'off',
@@ -30,19 +27,18 @@ module.exports = {
     'import/extensions': 'off',
     'import/no-unresolved': 'off',
     'react/jsx-filename-extension': 'off',
-    indent: [
-      'error',
-      2,
-    ],
+    indent: ['error', 2],
     'linebreak-style': ['error', 'unix'],
     'object-curly-newline': 'off',
     '@typescript-eslint/no-explicit-any': 'off',
   },
-  overrides: [{
-    files: ['*.tsx'],
-    rules: {
-      'react/prop-types': 'off',
-      'react/jsx-props-no-spreading': 'off',
+  overrides: [
+    {
+      files: ['*.tsx'],
+      rules: {
+        'react/prop-types': 'off',
+        'react/jsx-props-no-spreading': 'off',
+      },
     },
-  }],
+  ],
 }

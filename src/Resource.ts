@@ -1,19 +1,19 @@
 /* eslint-disable no-param-reassign */
+import { BaseRecord, BaseResource, Filter, flat, ValidationError } from 'adminjs'
 import { BaseEntity, In } from 'typeorm'
-import { BaseResource, ValidationError, Filter, BaseRecord, flat } from 'adminjs'
 
-import { Property } from './Property'
-import { convertFilter } from './utils/filter/filter.converter'
-import safeParseNumber from './utils/safe-parse-number'
+import { Property } from './Property.js'
+import { convertFilter } from './utils/filter/filter.converter.js'
+import safeParseNumber from './utils/safe-parse-number.js'
 
 type ParamsType = Record<string, any>;
 
 export class Resource extends BaseResource {
-  public static validate: any;
+  public static validate: any
 
-  private model: typeof BaseEntity;
+  private model: typeof BaseEntity
 
-  private propsObject: Record<string, Property> = {};
+  private propsObject: Record<string, Property> = {}
 
   constructor(model: typeof BaseEntity) {
     super(model)
@@ -94,7 +94,8 @@ export class Resource extends BaseResource {
   }
 
   public async create(params: Record<string, any>): Promise<ParamsType> {
-    const instance = this.model.create(flat.unflatten(this.prepareParams(params)))
+    const unflattenedParams = flat.unflatten(this.prepareParams(params)) as Record<string, any>
+    const instance = this.model.create(unflattenedParams)
 
     await this.validateAndSave(instance)
 

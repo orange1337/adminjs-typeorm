@@ -1,11 +1,9 @@
 {
   "compilerOptions": {
-    "module": "commonjs",
-    "target": "es6",
-    "lib": [
-      "es2018",
-      "DOM"
-    ],
+    "moduleResolution": "nodenext",
+    "module": "nodenext",
+    "target": "esnext",
+    "lib": ["esnext", "DOM"],
     "skipLibCheck": true,
     "sourceMap": true,
     "noImplicitAny": false,
@@ -16,17 +14,8 @@
     "outDir": "./lib",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-    "baseUrl": ".",
-    "paths": {
-      "react": ["node_modules/@types/react"],
-      "styled-components": ["node_modules/@types/styled-components"]
-    }
+    "baseUrl": "."
   },
-  "include": [
-    "./src/**/*.ts"
-  ],
-  "exclude": [
-    "node_modules",
-    "lib"
-  ]
+  "include": ["./src/**/*.ts"],
+  "exclude": ["node_modules", "lib"]
 }

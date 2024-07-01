@@ -1,7 +1,7 @@
 {
-  "name": "@adminjs/typeorm",
+  "name": "adminjs-typeorm-relations",
   "version": "4.0.0",
-  "description": "TypeORM adapter for AdminJS",
+  "description": "TypeORM adapter for AdminJS fix custom fix for filter by relations",
   "keywords": [
     "typeorm",
     "provider",
@@ -39,7 +39,6 @@
     "adminjs": ">=6.0.0",
     "typeorm": "~0.3.0"
   },
-  "optionalDependencies": {},
   "devDependencies": {
     "@commitlint/cli": "^8.3.5",
     "@commitlint/config-conventional": "^8.3.4",

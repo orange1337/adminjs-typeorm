@@ -61,7 +61,7 @@ export class Resource extends BaseResource {
     // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
     params,
   ): Promise<Array<BaseRecord>> {
-    const { limit = 10, offset = 0, sort = {} } = params
+    const { limit = 10, offset = 0, sort = {}, relations = [] } = params
     const { direction, sortBy } = sort
     const instances = await this.model.find({
       where: convertFilter(filter),
@@ -70,6 +70,7 @@ export class Resource extends BaseResource {
       order: {
         [sortBy]: (direction || 'asc').toUpperCase(),
       },
+      relations,
     })
     return instances.map((instance) => new BaseRecord(instance, this))
   }
@@ -78,7 +79,12 @@ export class Resource extends BaseResource {
     const reference: any = {}
     reference[this.idName()] = id
 
-    const instance = await this.model.findOneBy(reference)
+    const repository = this.model.getRepository()
+    const manyToManyRelations = repository?.metadata?.relations?.filter((relation) => relation?.relationType === 'many-to-many')
+
+    const relations = manyToManyRelations.map((relation) => relation?.propertyName)
+
+    const instance = await this.model.findOne({ where: reference, relations })
     if (!instance) {
       return null
     }

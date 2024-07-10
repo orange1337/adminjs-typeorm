@@ -1,6 +1,6 @@
 {
   "name": "adminjs-typeorm-relations",
-  "version": "4.0.3",
+  "version": "4.0.5",
   "description": "TypeORM adapter for AdminJS fix custom fix for filter by relations",
   "keywords": [
     "typeorm",

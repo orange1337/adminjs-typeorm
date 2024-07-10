@@ -80,7 +80,7 @@ export class Resource extends BaseResource {
     reference[this.idName()] = id
 
     const repository = this.model.getRepository()
-    const manyToManyRelations = repository?.metadata?.relations?.filter((relation) => relation?.relationType === 'many-to-many')
+    const manyToManyRelations = repository?.metadata?.relations?.filter((relation) => relation?.relationType === 'many-to-many' && relation?.isOwning)
 
     const relations = manyToManyRelations.map((relation) => relation?.propertyName)
 

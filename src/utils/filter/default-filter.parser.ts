@@ -1,4 +1,4 @@
-import { Like, Raw } from 'typeorm'
+import { Like } from 'typeorm'
 import { Property } from '../../Property'
 import { FilterParser } from './filter.types'
 
@@ -8,19 +8,8 @@ export const DefaultParser: FilterParser = {
   isParserForType: (filter) => filter.property.type() === 'string',
   parse: (filter, fieldKey) => {
     // fix UUID filtering for PostgresSQL
-    const isUuidColumn = (filter.property as Property).column.type === 'uuid'
-    if (isUuidColumn) {
+    if (uuidRegex.test(filter.value.toString()) || (filter.property as Property).column.type === 'uuid') {
       return { filterKey: fieldKey, filterValue: filter.value }
-    }
-
-    if (uuidRegex.test(filter.value.toString())) {
-      return {
-        filterKey: fieldKey,
-        filterValue: Raw(
-          (alias) => `CAST(${alias} AS CHAR(36)) = :value`,
-          { value: filter.value },
-        ),
-      }
     }
 
     return { filterKey: fieldKey, filterValue: Like(`%${filter.value}%`) }

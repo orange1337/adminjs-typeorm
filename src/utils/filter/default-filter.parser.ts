@@ -7,7 +7,13 @@ const uuidRegex = /^[0-9A-F]{8}-[0-9A-F]{4}-[5|4|3|2|1][0-9A-F]{3}-[89AB][0-9A-F
 export const DefaultParser: FilterParser = {
   isParserForType: (filter) => filter.property.type() === 'string',
   parse: (filter, fieldKey) => {
-    if (uuidRegex.test(filter.value.toString()) || (filter.property as Property).column.type === 'uuid') {
+    // fix UUID filtering for PostgresSQL
+    const isUuidColumn = (filter.property as Property).column.type === 'uuid'
+    if (isUuidColumn) {
+      return { filterKey: fieldKey, filterValue: filter.value }
+    }
+
+    if (uuidRegex.test(filter.value.toString())) {
       return {
         filterKey: fieldKey,
         filterValue: Raw(
@@ -16,6 +22,7 @@ export const DefaultParser: FilterParser = {
         ),
       }
     }
+
     return { filterKey: fieldKey, filterValue: Like(`%${filter.value}%`) }
   },
 }
